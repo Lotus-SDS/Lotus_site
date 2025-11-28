@@ -35,8 +35,8 @@ const Footer = () => {
                 <div className="border-t border-slate-100 pt-4 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-slate-400 text-sm">© 2025 Lotus Soluções em Software. Todos os direitos reservados.</p>
                     <div className="flex space-x-4">
-                        <a href="#" className="text-slate-400 hover:text-lotus-600 transition-colors"><Github size={20} /></a>
-                        <a href="#" className="text-slate-400 hover:text-lotus-600 transition-colors"><Linkedin size={20} /></a>
+                        <a href="https://github.com/Lotus-SDS" className="text-slate-400 hover:text-lotus-600 transition-colors"><Github size={20} /></a>
+                        <a href="https://www.linkedin.com" className="text-slate-400 hover:text-lotus-600 transition-colors"><Linkedin size={20} /></a>
                     </div>
                 </div>
             </div>
