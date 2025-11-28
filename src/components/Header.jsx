@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import lotusLogo from '../assets/logo.png';
+const lotusLogo = '/LOTUSGREEN.svg';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +13,7 @@ const Header = () => {
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
-                        <img src={lotusLogo} alt="Lotus Logo" className="h-10 -mt-1 -mr-3 w-auto" />
+                        <img src={lotusLogo} alt="Lotus Logo" className="h-10 -mt-1 w-auto" />
                         <span className="text-2xl font-bold text-slate-800 tracking-tight">Lótus</span>
                     </div>
 
