@@ -1,23 +1,23 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import BackgroundWaves from './animations/BackgroundWaves';
 
 const Hero = () => {
     return (
-        <section className="pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <section className="min-h-screen flex items-center pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden relative">
+            <BackgroundWaves />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                 <div className="text-center max-w-4xl mx-auto">
-                    <div className="inline-flex items-center px-3 py-1 rounded-full bg-lotus-50 text-lotus-700 text-sm font-medium mb-8 border border-lotus-200">
-                        Inovação em Software desde 2025
-                    </div>
+                    <div className="h-8 mb-6"></div>
                     <h1 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight mb-8 leading-tight">
                         Inovação que floresce <br className="hidden md:block" />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-lotus-500 to-emerald-600">através do código.</span>
                     </h1>
-                    <p className="mt-4 text-xl text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    <p className="mt-4 text-xl text-white max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-md font-medium">
                         Transformamos problemas complexos em soluções digitais elegantes.
                         Ecossistemas de software robustos, escaláveis e focados na experiência do usuário.
                     </p>
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
+                    <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
                         <a
                             href="#contato"
                             className="px-8 py-4 rounded-full bg-lotus-600 text-white font-semibold text-lg hover:bg-lotus-700 transition-all shadow-lg shadow-lotus-200 hover:shadow-lotus-300 flex items-center justify-center gap-2"
