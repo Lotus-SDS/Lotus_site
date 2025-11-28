@@ -12,7 +12,7 @@ const Contact = () => {
 
                     <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Vamos construir o futuro juntos?</h2>
                     <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
-                        Tem um projeto em mente? Entre em contato e descubra como a Lotus pode elevar o nível do seu negócio.
+                        Tem um projeto em mente? Entre em contato e descubra como a Lótus pode elevar o nível do seu negócio.
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
                         <a

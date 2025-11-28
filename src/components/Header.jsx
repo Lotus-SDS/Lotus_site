@@ -14,7 +14,7 @@ const Header = () => {
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0, 0)}>
                         <img src={lotusLogo} alt="Lotus Logo" className="h-10 -mt-1 -mr-3 w-auto" />
-                        <span className="text-2xl font-bold text-slate-800 tracking-tight">Lotus</span>
+                        <span className="text-2xl font-bold text-slate-800 tracking-tight">Lótus</span>
                     </div>
 
                     {/* Desktop Navigation */}

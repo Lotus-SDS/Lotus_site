@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                     <div className="col-span-1 md:col-span-2">
                         <div className="flex items-center gap-2 mb-4">
-                            <span className="text-2xl font-bold text-slate-800">Lotus</span>
+                            <span className="text-2xl font-bold text-slate-800">Lótus</span>
                             <div className="w-2 h-2 rounded-full bg-lotus-500"></div>
                         </div>
                         <p className="text-slate-500 max-w-xs">
@@ -33,7 +33,7 @@ const Footer = () => {
                 </div>
 
                 <div className="border-t border-slate-100 pt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-slate-400 text-sm">© 2025 Lotus Soluções em Software. Todos os direitos reservados.</p>
+                    <p className="text-slate-400 text-sm">© 2025 Lótus Soluções em Desenvolvimento de Software. Todos os direitos reservados.</p>
                     <div className="flex space-x-4">
                         <a href="https://github.com/Lotus-SDS" className="text-slate-400 hover:text-lotus-600 transition-colors"><Github size={20} /></a>
                         <a href="https://www.linkedin.com" className="text-slate-400 hover:text-lotus-600 transition-colors"><Linkedin size={20} /></a>

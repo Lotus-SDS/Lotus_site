@@ -21,9 +21,9 @@ const About = () => {
                         </div>
                     </div>
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Sobre a Lotus</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Sobre a Lótus</h2>
                         <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                            Fundada em 2025, a Lotus nasceu com uma missão clara: elevar o padrão do desenvolvimento de software.
+                            Fundada em 2025, a Lótus nasceu com uma missão clara: elevar o padrão do desenvolvimento de software.
                             Não escrevemos apenas código; criamos experiências digitais que impulsionam negócios e facilitam vidas.
                         </p>
                         <p className="text-lg text-slate-600 mb-8 leading-relaxed">
