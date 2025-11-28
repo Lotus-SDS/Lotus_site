@@ -17,7 +17,7 @@ const TeamMember = ({ name, role, image, github }) => (
             </a>
         </div>
         <h3 className="text-xl font-bold text-slate-900 mb-1">{name}</h3>
-        <p className="text-lotus-600 font-medium mb-2">{role}</p>
+        <p className="text-lotus-400 font-medium mb-2">{role}</p>
     </div>
 );
 
