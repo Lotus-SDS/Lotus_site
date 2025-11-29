@@ -3,5 +3,5 @@ services:
     build: .
     container_name: lotus_website
     ports:
-      - "8080:80" # Acessar via http://localhost:8080
+      - "80:80" # Acessar via http://lotusdev.com.br (Porta padrão web)
     restart: always # Se o servidor reiniciar ou o site cair, ele volta sozinho
