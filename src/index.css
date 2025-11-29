@@ -5,7 +5,10 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: light;
+    /* Força o navegador a usar controles/barras claros */
   }
+
   body {
     @apply bg-white text-slate-700 antialiased;
   }
