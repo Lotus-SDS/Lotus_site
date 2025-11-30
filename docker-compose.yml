@@ -1,13 +1,22 @@
-services:
-  lotus-site:
-    build: .
-    container_name: lotus_website
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - certs-volume:/etc/nginx/ssl
-    restart: always
+version: '3.8'
 
-volumes:
-  certs-volume:
+services:
+  website:
+    build: 
+      context: .
+      dockerfile: Dockerfile  # <--- AQUI APONTA PARA O DOCKERFILE DESTA PASTA
+    restart: always
+    networks:
+      - web_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.lotus.rule=Host(`lotusdev.com.br`)"
+      - "traefik.http.routers.lotus.entrypoints=websecure"
+      - "traefik.http.routers.lotus.tls.certresolver=myresolver"
+      - "traefik.http.services.lotus.loadbalancer.server.port=80"
+
+# NÃO TEM MAIS O BLOCO UPDATER AQUI! APAGUE ELE!
+
+networks:
+  web_network:
+    external: true
