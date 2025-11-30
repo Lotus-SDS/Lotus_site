@@ -11,7 +11,10 @@ const Hero = () => {
                     <div className="h-8 mb-6"></div>
                     <h1 className="text-5xl md:text-7xl font-bold text-slate-900 tracking-tight mb-8 leading-tight">
                         Inovação que floresce <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-lotus-500 to-emerald-600">através do código.</span>
+                        <span className="relative inline-block isolate">
+                            <span className="absolute inset-0 text-transparent [-webkit-text-stroke:4px_white] -z-10" aria-hidden="true">através do código.</span>
+                            <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-lotus-500 to-emerald-600">através do código.</span>
+                        </span>
                     </h1>
                     <p className="mt-4 text-xl text-white max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-md font-medium">
                         Transformamos problemas complexos em soluções digitais elegantes.
