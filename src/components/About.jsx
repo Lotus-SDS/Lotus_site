@@ -1,5 +1,5 @@
 import React from 'react';
-import CodeTypingAnimation from './CodeTypingAnimation';
+import CodeTypingAnimation from './animations/CodeTypingAnimation';
 
 const About = () => {
     return (
@@ -7,7 +7,7 @@ const About = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div className="relative">
-                        <div className="bg-slate-900 rounded-3xl p-6 shadow-2xl relative overflow-hidden aspect-square flex items-center justify-center border border-slate-800">
+                        <div className="bg-slate-900 rounded-3xl p-6 shadow-2xl relative overflow-hidden h-[400px] lg:h-auto lg:aspect-square flex items-center justify-center border border-slate-800">
                             {/* Background decoration */}
                             <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-lotus-500 rounded-full opacity-20 blur-3xl"></div>
                             <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-64 h-64 bg-emerald-500 rounded-full opacity-20 blur-3xl"></div>
@@ -21,9 +21,9 @@ const About = () => {
                         </div>
                     </div>
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Sobre a Lótus</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">Sobre a Lotus</h2>
                         <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                            Fundada em 2025, a Lótus nasceu com uma missão clara: elevar o padrão do desenvolvimento de software.
+                            Fundada em 2025, a Lotus nasceu com uma missão clara: elevar o padrão do desenvolvimento de software.
                             Não escrevemos apenas código; criamos experiências digitais que impulsionam negócios e facilitam vidas.
                         </p>
                         <p className="text-lg text-slate-600 mb-8 leading-relaxed">

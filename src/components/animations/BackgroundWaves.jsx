@@ -35,9 +35,9 @@ const BackgroundWaves = () => {
             delay: 0.4
         }
     ]; return (
-        <div className="absolute top-0 left-0 w-full h-screen overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
             <svg
-                className="absolute w-full h-full"
+                className="absolute w-full h-full object-cover"
                 viewBox="0 0 1440 800"
                 xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="none"
