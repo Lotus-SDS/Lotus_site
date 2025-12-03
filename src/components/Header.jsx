@@ -75,9 +75,9 @@ const Header = () => {
                 <div className="md:hidden absolute top-20 left-0 w-full bg-white  border-t border-slate-100">
                     <div className="px-4 py-6 space-y-2">
                         <a href="#hero" onClick={(e) => { toggleMenu(); handleScroll(e, '#hero'); }} className="block px-3 py-3 text-base font-medium text-lotus-1700 hover:text-lotus-2000 hover:bg-slate-50">Início</a>
-                        <a href="#sobre" onClick={(e) => { toggleMenu(); handleScroll(e, '#sobre'); }} className="block px-3 py-3 text-base font-medium text-lotus-1700 hover:text-lotus-2000 hover:bg-slate-50">Sobre</a>
-                        <a href="#servicos" onClick={(e) => { toggleMenu(); handleScroll(e, '#servicos'); }} className="block px-3 py-3  text-base font-medium text-lotus-1700 hover:text-lotus-2000 hover:bg-slate-50">Serviços</a>
-                        <a href="#team" onClick={(e) => { toggleMenu(); handleScroll(e, '#team'); }} className="block px-3 py-3 text-base font-medium text-lotus-1700 hover:text-lotus-2000 hover:bg-slate-50">Time</a>
+                        <a href="#sobre2" onClick={(e) => { toggleMenu(); handleScroll(e, '#sobre2'); }} className="block px-3 py-3 text-base font-medium text-lotus-1700 hover:text-lotus-2000 hover:bg-slate-50">Sobre</a>
+                        <a href="#servicos2" onClick={(e) => { toggleMenu(); handleScroll(e, '#servicos2'); }} className="block px-3 py-3  text-base font-medium text-lotus-1700 hover:text-lotus-2000 hover:bg-slate-50">Serviços</a>
+                        <a href="#team2" onClick={(e) => { toggleMenu(); handleScroll(e, '#team2'); }} className="block px-3 py-3 text-base font-medium text-lotus-1700 hover:text-lotus-2000 hover:bg-slate-50">Time</a>
                         <a href="#contato" onClick={(e) => { toggleMenu(); handleScroll(e, '#contato'); }} className="block px-3 py-3 text-base font-medium text-lotus-1700 hover:text-lotus-2000 hover:bg-slate-50">Contato</a>
                     </div>
                 </div>

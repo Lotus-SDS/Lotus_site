@@ -12,8 +12,7 @@ const TeamMember = ({ name, role, image, github }) => {
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            onTouchStart={() => setIsHovered(true)}
-            onTouchEnd={() => setIsHovered(false)}
+            onClick={() => setIsHovered(!isHovered)}
         >
             <div className="relative mb-6 peer group">
                 <div className="w-40 h-40 overflow-hidden border-lotus-1700 shadow-lg transition-all">
@@ -36,9 +35,9 @@ const TeamMember = ({ name, role, image, github }) => {
 
 const Team = () => {
     return (
-        <section id="team" className="py-60  bg-lotus-1700">
+        <section id="team" className="py-48  bg-lotus-1700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 xl:grid-cols-10 gap-0 mb-24 md:items-end border-b-4 border-lotus-1500 pb-6  text-left md:text-right">
+                <div id='team2' className="grid grid-cols-1 xl:grid-cols-10 gap-0 mb-24 md:items-end border-b-4 border-lotus-1500 pb-6  text-left md:text-right">
                     <p className="text-lg text-lotus-2300 pb-4 pt-8 xl:pt-0 max-w-xl xl:col-span-4 md:ml-auto order-2 xl:order-1 ">
                         Mentes por trás da Lotus.
                     </p>

@@ -16,17 +16,22 @@ const About = () => {
 
                     </div>
                     <div>
-                        <div className="md:grid md:grid-cols-2 md:gap-12 lg:flex lg:flex-col lg:gap-0">
+                        <div id='sobre2' className="md:grid md:grid-cols-2 md:gap-12 lg:flex lg:flex-col lg:gap-0">
                             <div className="flex flex-col mb-6">
                                 <h2
-                                    className="text-[120px] md:text-[135px] lg:text-[150px] font-bold text-lotus-1700 leading-none 
+                                    className="
+                                    col-span-6
+                                    text-[120px] md:text-[135px] lg:text-[150px] font-bold text-lotus-1700 leading-none 
                                     [text-shadow:1px_1px_0px_black,2px_2px_0px_black,3px_3px_0px_black,4px_4px_0px_black,5px_5px_0px_black,6px_6px_0px_black,7px_7px_0px_black,8px_8px_0px_black,9px_9px_0px_black,10px_10px_0px_black,11px_11px_0px_black,12px_12px_0px_black]
                                     "
+
                                 >
                                     Sobre
                                 </h2>
                                 <h2
-                                    className="text-[120px] md:text-[135px] lg:text-[150px] font-bold text-lotus-1700 leading-none 
+                                    className="
+                                    col-span-6  
+                                    text-[120px] md:text-[135px] lg:text-[150px] font-bold text-lotus-1700 leading-none 
                                     [text-shadow:1px_1px_0px_black,2px_2px_0px_black,3px_3px_0px_black,4px_4px_0px_black,5px_5px_0px_black,6px_6px_0px_black,7px_7px_0px_black,8px_8px_0px_black,9px_9px_0px_black,10px_10px_0px_black,11px_11px_0px_black,12px_12px_0px_black]
                                     "
                                 >
@@ -47,7 +52,7 @@ const About = () => {
                         </div>
 
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div   className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div className="relative group">
                                 {/* <div className="absolute top-3 left-3 w-full h-full border-2 border-slate-900"></div>*/}
 

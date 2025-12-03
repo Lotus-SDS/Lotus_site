@@ -12,8 +12,7 @@ const ServiceCard = ({ icon, title, description }) => {
             }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            onTouchStart={() => setIsHovered(true)}
-            onTouchEnd={() => setIsHovered(false)}
+            onClick={() => setIsHovered(!isHovered)}
         >
             <div className="w-14 h-14 text-lotus-1500 flex items-center justify-center mb-6 group-hover:text-lotus-2300 transition-colors">
                 {icon}
@@ -30,7 +29,7 @@ const Services = () => {
     return (
         <section id="servicos" className="py-48 bg-lotus-1700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-24 items-end border-b-4 border-lotus-1500 pb-6">
+                <div id="servicos2" className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-24 items-end border-b-4 border-lotus-1500 pb-6">
                     <h2 className="text-[80px] sm:text-[110px] md:text-[150px] text-lotus-1500 font-bold  leading-none"
 
                     >Serviços</h2>
