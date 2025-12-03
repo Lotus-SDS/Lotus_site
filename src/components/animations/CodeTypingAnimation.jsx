@@ -62,11 +62,11 @@ if voce.imagina():
     }, []);
 
     return (
-        <div className="font-mono text-xs sm:text-sm md:text-base text-slate-300 w-full h-full overflow-hidden">
+        <div className="font-mono text-xs sm:text-sm md:text-base text-slate-900 w-full h-full overflow-hidden">
             <div className="flex gap-2 mb-4">
-                <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                <div className="w-3 h-3 rounded-full bg-red-600"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                <div className="w-3 h-3 rounded-full bg-green-600"></div>
             </div>
             <pre className="whitespace-pre-wrap break-words">
                 <code className="language-python block">
@@ -76,18 +76,18 @@ if voce.imagina():
                                 className="break-words whitespace-pre-wrap"
                                 dangerouslySetInnerHTML={{
                                     __html: line
-                                        .replace(/\b\d+\b/g, '<span __c=\'text-emerald-400\'>$&</span>')
-                                        .replace(/"[^"]*"/g, '<span __c=\'text-orange-400\'>$&</span>')
+                                        .replace(/\b\d+\b/g, '<span __c=\'text-blue-600 font-semibold\'>$&</span>')
+                                        .replace(/"[^"]*"/g, '<span __c=\'text-orange-600 font-medium\'>$&</span>')
                                         .replace(/#.*$/g, '<span __c=\'text-slate-500 italic\'>$&</span>')
-                                        .replace(/\b(def|class|if|return|async|await)\b/g, '<span __c=\'text-lotus-400 font-bold\'>$&</span>')
-                                        .replace(/\b(self)\b/g, '<span __c=\'text-blue-400 italic\'>$&</span>')
-                                        .replace(/\b(Lotus|Software)\b/g, '<span __c=\'text-emerald-400 font-bold\'>$&</span>')
+                                        .replace(/\b(def|class|if|return|async|await)\b/g, '<span __c=\'text-purple-700 font-bold\'>$&</span>')
+                                        .replace(/\b(self)\b/g, '<span __c=\'text-indigo-600 italic font-medium\'>$&</span>')
+                                        .replace(/\b(Lotus|Software)\b/g, '<span __c=\'text-emerald-700 font-bold\'>$&</span>')
                                         .replace(/__c=/g, 'class=')
                                 }}
                             />
                         </div>
                     ))}
-                    <span className="animate-pulse text-lotus-400">|</span>
+                    <span className="animate-pulse text-black font-bold">|</span>
                 </code>
             </pre>
         </div>

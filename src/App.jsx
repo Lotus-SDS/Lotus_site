@@ -9,16 +9,12 @@ import Footer from './components/Footer';
 
 const App = () => {
   return (
-    <div className="min-h-screen font-sans text-slate-600 bg-white selection:bg-lotus-100 selection:text-lotus-900">
+    <div className="font-sans selection:bg-lotus-100 ">
       <Header />
       <Hero />
-      <div className="h-24 bg-gradient-to-b from-white to-slate-50"></div>
       <About />
-      <div className="h-24 bg-gradient-to-b from-slate-50 to-white"></div>
       <Services />
-      <div className="h-24 bg-gradient-to-b from-white to-slate-50"></div>
       <Team />
-      <div className="h-24 bg-gradient-to-b from-slate-50 to-white"></div>
       <Contact />
       <Footer />
     </div>
