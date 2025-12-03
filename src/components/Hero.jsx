@@ -12,7 +12,7 @@ const Hero = () => {
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.15 }}
-                            src="/src/assets/LOTUS-VERDE-PPK(1).png"
+                            src="./public/LOTUS-VERDE-PPK (2).png"
                             alt="Lotus"
                             className="color-lotus-1900 w-72 md:w-96 lg:w-[500px] h-auto mb-5"
                         />

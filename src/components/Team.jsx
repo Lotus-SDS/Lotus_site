@@ -38,8 +38,8 @@ const Team = () => {
     return (
         <section id="team" className="py-60  bg-lotus-1700">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 xl:grid-cols-10 gap-0 mb-24 items-end border-b-4 border-lotus-1500 pb-6 text-right">
-                    <p className="text-lg text-lotus-2300 pb-4 pt-8 xl:pt-0 max-w-xl xl:col-span-4 ml-auto order-2 xl:order-1">
+                <div className="grid grid-cols-1 xl:grid-cols-10 gap-0 mb-24 md:items-end border-b-4 border-lotus-1500 pb-6  text-left md:text-right">
+                    <p className="text-lg text-lotus-2300 pb-4 pt-8 xl:pt-0 max-w-xl xl:col-span-4 md:ml-auto order-2 xl:order-1 ">
                         Mentes por trás da Lotus.
                     </p>
 
