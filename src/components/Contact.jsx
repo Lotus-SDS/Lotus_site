@@ -1,40 +1,107 @@
-import React from 'react';
-import { Mail, Linkedin } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { Check, Copy, Linkedin, Mail } from 'lucide-react';
+import LotusParticles from './animations/LotusParticles';
+import { useFirstImage } from '../lib/useFirstImage';
+import { EMAIL, LINKEDIN, MAILTO } from '../lib/site';
+
+const BLOOM = ['/images/lotus-bloom.webp', '/images/lotus-bloom.jpg', '/images/lotus-bloom.png'];
+const PILLARS = ['Moderno', 'Rápido', 'Seguro', 'Escalável'];
 
 const Contact = () => {
-    return (
-        <section id="contato" className="py-24 bg-lotus-1500 relative overflow-hidden">
-            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className=" p-10 md:p-16 text-center shadow-2xl overflow-hidden relative">
-                    {/* Background decoration */}
+    const ref = useRef(null);
+    const reduce = useReducedMotion();
+    const bloomSrc = useFirstImage(BLOOM);
+    const [copied, setCopied] = useState(false);
 
-                    <h2 className="text-3xl md:text-4xl font-bold text-lotus-1100 mb-6">Vamos construir o futuro juntos?</h2>
-                    <p className="text-lg text-lotus-2800 mb-10 max-w-2xl mx-auto">
-                        Tem um projeto em mente? Entre em contato e descubra como a Lotus pode elevar o nível do seu negócio.
-                    </p>
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <a
-                            href="mailto:contato.lotus.sds@gmail.com"
-                            className="relative px-8 py-4 bg-white text-slate-900 font-bold text-lg overflow-hidden group flex items-center justify-center"
-                        >
-                            <span className="absolute inset-0 bg-slate-200 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
-                            <span className="relative z-10 flex items-center gap-2">
-                                <Mail size={20} /> Falar com Especialista
-                            </span>
-                        </a>
-                        <a
-                            href="https://linkedin.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="relative px-8 py-4 bg-transparent border border-lotus-2800 text-white font-semibold text-lg overflow-hidden group flex items-center justify-center"
-                        >
-                            <span className="absolute inset-0 bg-lotus-2800 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></span>
-                            <span className="relative z-10 flex items-center gap-2">
-                                <Linkedin size={20} /> LinkedIn
-                            </span>
-                        </a>
-                    </div>
+    const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'center center'] });
+    const bloomScale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [0.82, 1]);
+    const bloomY = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [90, 0]);
+
+    useEffect(() => {
+        if (!copied) return undefined;
+        const t = setTimeout(() => setCopied(false), 2200);
+        return () => clearTimeout(t);
+    }, [copied]);
+
+    const copyEmail = async () => {
+        try {
+            await navigator.clipboard.writeText(EMAIL);
+            setCopied(true);
+        } catch {
+            window.location.href = MAILTO;
+        }
+    };
+
+    return (
+        <section id="contato" ref={ref} aria-labelledby="contato-title" className="relative overflow-hidden pb-[clamp(4rem,10vh,7rem)] pt-[clamp(5rem,12vh,9rem)]">
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute left-1/2 top-[34%] h-[80vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,rgb(var(--lime)/0.11),transparent)]"
+            />
+
+            <div className="shell relative flex flex-col items-center text-center">
+                {/* A flor final: floresce quando o caule chega ao fim */}
+                <motion.div style={{ scale: bloomScale, y: bloomY }} className="relative w-[min(78vw,500px)]">
+                    {bloomSrc ? (
+                        <img
+                            src={bloomSrc}
+                            alt="Flor de lótus aberta, iluminada em verde-lima"
+                            className="aspect-square w-full object-cover mix-blend-lighten [mask-image:radial-gradient(closest-side,#000_62%,transparent)]"
+                        />
+                    ) : (
+                        <LotusParticles startOnView maxParticles={3400} />
+                    )}
+                </motion.div>
+
+                <h2 id="contato-title" data-stem-node="contato" data-stem-tick="off" className="display-xl relative mt-6">
+                    <span className="lit-text block">Vamos construir</span>
+                    <span className="block text-moss">o futuro juntos?</span>
+                </h2>
+                <p className="lead mt-8 max-w-[46ch]">
+                    Tem um projeto em mente? Entre em contato e descubra como a Lotus pode elevar o nível do seu negócio.
+                </p>
+
+                <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+                    <a data-stem="cta" href={MAILTO} className="cta-socket btn btn-primary btn-lg">
+                        <Mail size={18} strokeWidth={1.9} aria-hidden="true" />
+                        Falar com especialista
+                    </a>
+                    <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
+                        <Linkedin size={18} strokeWidth={1.75} aria-hidden="true" />
+                        LinkedIn
+                    </a>
                 </div>
+
+                <div className="mt-7 flex items-center gap-2 text-[0.9375rem]">
+                    <a href={MAILTO} className="link-quiet">
+                        {EMAIL}
+                    </a>
+                    <button
+                        type="button"
+                        onClick={copyEmail}
+                        aria-label="Copiar e-mail"
+                        className="relative grid h-9 w-9 place-items-center rounded-full border border-bone/10 text-sage transition-colors hover:border-bone/30 hover:text-bone"
+                    >
+                        {copied ? <Check size={15} className="text-lime" aria-hidden="true" /> : <Copy size={15} aria-hidden="true" />}
+                    </button>
+                    <span role="status" aria-live="polite" className={`text-[0.8125rem] text-lime transition-opacity duration-300 ${copied ? 'opacity-100' : 'opacity-0'}`}>
+                        {copied ? 'Copiado' : ''}
+                    </span>
+                </div>
+            </div>
+
+            <div className="shell relative mt-24">
+                <p className="flex items-center justify-center gap-x-2.5 whitespace-nowrap text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-sage sm:gap-x-4 sm:text-[0.875rem] sm:tracking-[0.2em]">
+                    <span aria-hidden="true" className="hidden h-px w-12 bg-lime/50 sm:block" />
+                    {PILLARS.map((word, i) => (
+                        <React.Fragment key={word}>
+                            {i > 0 && <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-lime/70" />}
+                            <span>{word}</span>
+                        </React.Fragment>
+                    ))}
+                    <span aria-hidden="true" className="hidden h-px w-12 bg-lime/50 sm:block" />
+                </p>
             </div>
         </section>
     );

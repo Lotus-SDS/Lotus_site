@@ -1,52 +1,55 @@
 /** @type {import('tailwindcss').Config} */
+const token = (name) => `rgb(var(--${name}) / <alpha-value>)`;
+
 export default {
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
-    darkMode: 'class', // Desativa o modo escuro automático do sistema
     theme: {
         extend: {
             colors: {
-                lotus: {
-                    50: '#f0fdf4',
-                    100: '#dcfce7',
-                    200: '#bbf7d0',
-                    300: '#86efac',
-                    400: '#4ade80',
-                    500: '#22c55e',
-                    600: '#16a34a',
-                    700: '#15803d',
-                    800: '#166534',
-                    900: '#14532d',
-                    1000: '#5D8736',
-                    1100: '#14532D',
-                    1200: '#A9C46C',
-                    1300: '#F4FFC3',
-                    1400: '#DCD7C9',
-                    1500: '#BBC863',
-                    1600: '#658C58',
-                    1700: '#2C3930',
-                    1800: '#6f7c73ff',
-                    1900: '#D8E2AC',
-                    2000: '#778873',
-                    2100: '#c6cab1ff',
-                    2200: '#cfd1c4ff',
-                    2300: '#d9e497ff',
-                    2400: '#29352cff',
-                    2500: '#a6b15eff',
-                    2600: '#c4ccc6ff',
-                    2700: '#a6bba1ff',
-                    2800: '#26663fff',
-                    2900: '#49554dff',
-
+                // Fundo: vazio quase preto com um leve tom verde
+                void: token('void'),
+                ink: token('ink'),
+                // Texto: principal, secundário e apagado
+                bone: token('bone'),
+                sage: token('sage'),
+                moss: token('moss'),
+                // Única fonte de luz: o verde-lima do logo (#B7C95B)
+                lime: {
+                    DEFAULT: token('lime'),
+                    hi: token('lime-hi'),
                 },
-                slate: {
-                    850: '#1e293b', // Custom dark for footer
-                }
             },
             fontFamily: {
-                sans: ['DM Sans', 'Inter', 'Roboto', 'sans-serif'],
+                sans: ['"Hanken Grotesk"', 'system-ui', 'sans-serif'],
+                mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+            },
+            maxWidth: {
+                shell: '1360px',
+            },
+            transitionTimingFunction: {
+                expo: 'cubic-bezier(0.16, 1, 0.3, 1)',
+            },
+            keyframes: {
+                marquee: {
+                    from: { transform: 'translate3d(0, 0, 0)' },
+                    to: { transform: 'translate3d(-50%, 0, 0)' },
+                },
+                caret: {
+                    '0%, 49%': { opacity: '1' },
+                    '50%, 100%': { opacity: '0' },
+                },
+                breathe: {
+                    '0%, 100%': { transform: 'scale(1)', opacity: '0.9' },
+                    '50%': { transform: 'scale(1.35)', opacity: '0.45' },
+                },
+            },
+            animation: {
+                marquee: 'marquee 48s linear infinite',
+                caret: 'caret 1.1s steps(1) infinite',
+                breathe: 'breathe 2.4s ease-in-out infinite',
             },
         },
     },

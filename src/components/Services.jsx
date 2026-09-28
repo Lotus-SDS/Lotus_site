@@ -1,64 +1,89 @@
-import React, { useState } from 'react';
-import { Code2, Smartphone, Cloud, Cpu } from 'lucide-react';
+import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { BrainCircuit, Cloud, Code2, Smartphone } from 'lucide-react';
+import { EASE } from '../lib/site';
 
-const ServiceCard = ({ icon, title, description }) => {
-    const [isHovered, setIsHovered] = useState(false);
+const SERVICES = [
+    {
+        icon: Code2,
+        title: 'Desenvolvimento Web',
+        description: 'Sistemas complexos, dashboards interativos e Landing Pages de alta conversão com React e Next.js.',
+        tags: ['React', 'Next.js'],
+    },
+    {
+        icon: Smartphone,
+        title: 'Aplicativos Móveis',
+        description: 'Apps nativos e híbridos para iOS e Android que oferecem performance excepcional e UX fluida.',
+        tags: ['iOS', 'Android'],
+    },
+    {
+        icon: Cloud,
+        title: 'Arquitetura Cloud',
+        description: 'Infraestrutura escalável e segura na AWS ou Azure, com práticas modernas de DevOps e CI/CD.',
+        tags: ['AWS', 'Azure', 'CI/CD'],
+    },
+    {
+        icon: BrainCircuit,
+        title: 'Integração com IA',
+        description: 'Implementação de modelos de Inteligência Artificial para automatizar processos e gerar insights.',
+        tags: ['IA', 'Automação'],
+    },
+];
 
-    return (
-        <div
-            className="group p-8 bg-lotus-1700 border-lotus-1700 hover:-translate-y-3 hover:translate-x-3 transition-all duration-300"
-            style={{
-                boxShadow: isHovered ? '0px 0px 20px #d9e497ff, -1px 1px 0px #d9e497ff, -2px 2px 0px #d9e497ff, -3px 3px 0px #d9e497ff, -4px 4px 0px #d9e497ff, -5px 5px 0px #d9e497ff, -6px 6px 0px #d9e497ff, -7px 7px 0px #d9e497ff, -8px 8px 0px #d9e497ff, -9px 9px 0px #d9e497ff, -10px 10px 0px #d9e497ff, -11px 11px 0px #d9e497ff, -12px 12px 0px #d9e497ff' : 'none'
-            }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onClick={() => setIsHovered(!isHovered)}
-        >
-            <div className="w-14 h-14 text-lotus-1500 flex items-center justify-center mb-6 group-hover:text-lotus-2300 transition-colors">
-                {icon}
-            </div>
-            <h3 className="text-xl font-bold text-lotus-1800 group-hover:text-lotus-2600 mb-3">{title}</h3>
-            <p className="text-lotus-2000 leading-relaxed group-hover:text-lotus-2700">
-                {description}
-            </p>
-        </div>
-    );
-};
-
+// Cada serviço é um "fruto" da colheita: o caule se ramifica e acende o card ao chegar.
 const Services = () => {
+    const reduce = useReducedMotion();
     return (
-        <section id="servicos" className="py-48 bg-lotus-1700">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div id="servicos2" className="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-24 items-end border-b-4 border-lotus-1500 pb-6">
-                    <h2 className="text-[80px] sm:text-[110px] md:text-[150px] text-lotus-1500 font-bold  leading-none"
-
-                    >Serviços</h2>
-                    <p className="text-lg text-lotus-2300 pb-4 max-w-xl">
+        <section id="servicos" aria-labelledby="servicos-title" className="relative py-[clamp(6rem,16vh,11rem)]">
+            <div className="shell">
+                <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+                    <h2 id="servicos-title" data-stem-node="servicos" className="title-split lg:col-span-7">
+                        <span className="lit-text">Serviços:</span> <span className="text-moss">da visão à realidade digital</span>
+                    </h2>
+                    <p className="lead max-w-[38ch] lg:col-span-4 lg:col-start-9 lg:pb-1">
                         Oferecemos um leque completo de soluções tecnológicas para transformar sua visão em realidade digital.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <ServiceCard
-                        icon={<Code2 size={32} />}
-                        title="Desenvolvimento Web"
-                        description="Sistemas complexos, dashboards interativos e Landing Pages de alta conversão com React e Next.js."
+                <div className="relative mt-24 lg:mt-28">
+                    {/* Placa sob os cards: grade de pontos e luz do barramento, que o vidro desfoca */}
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute -inset-x-6 -bottom-16 -top-10 bg-[radial-gradient(rgb(var(--bone)/0.09)_1px,transparent_1.2px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_at_50%_45%,#000_30%,transparent_72%)]"
                     />
-                    <ServiceCard
-                        icon={<Smartphone size={32} />}
-                        title="Aplicativos Móveis"
-                        description="Apps nativos e híbridos para iOS e Android que oferecem performance excepcional e UX fluida."
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-x-[8%] top-[5%] h-[70%] bg-[radial-gradient(ellipse_at_center,rgb(var(--lime)/0.14),transparent_68%)] blur-2xl"
                     />
-                    <ServiceCard
-                        icon={<Cloud size={32} />}
-                        title="Arquitetura Cloud"
-                        description="Infraestrutura escalável e segura na AWS ou Azure, com práticas modernas de DevOps e CI/CD."
-                    />
-                    <ServiceCard
-                        icon={<Cpu size={32} />}
-                        title="Integração com IA"
-                        description="Implementação de modelos de Inteligência Artificial para automatizar processos e gerar insights."
-                    />
+                    <ul className="relative grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                        {SERVICES.map(({ icon, title, description, tags }, i) => {
+                            const Icon = icon;
+                            return (
+                                <li key={title} data-stem-tile className="tile glass flex flex-col rounded-[20px] p-6 sm:p-7">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: reduce ? 0 : 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+                                        transition={{ duration: 0.9, delay: i * 0.08, ease: EASE }}
+                                        className="flex h-full flex-col"
+                                    >
+                                        <span className="tile-icon grid h-12 w-12 place-items-center rounded-full border border-bone/15 text-lime">
+                                            <Icon size={22} strokeWidth={1.6} aria-hidden="true" />
+                                        </span>
+                                        <h3 className="mt-10 text-[1.3rem] font-medium leading-tight tracking-[-0.02em] text-bone">{title}</h3>
+                                        <p className="mt-3 text-[0.9688rem] leading-relaxed text-sage">{description}</p>
+                                        <ul className="mt-auto flex flex-wrap gap-1.5 pt-8" aria-label={`Tecnologias de ${title}`}>
+                                            {tags.map((tag) => (
+                                                <li key={tag} className="rounded-full bg-bone/[0.05] px-2.5 py-1 text-[0.75rem] font-medium text-sage">
+                                                    {tag}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                </motion.div>
+                            </li>
+                        );
+                    })}
+                </ul>
                 </div>
             </div>
         </section>

@@ -1,70 +1,85 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { Github } from 'lucide-react';
+import { EASE } from '../lib/site';
 
-const TeamMember = ({ name, role, image, github }) => {
-    const [isHovered, setIsHovered] = useState(false);
+const FOUNDERS = [
+    { name: 'João Paulo G. Azevedo', role: 'Co-Founder & CEO', github: 'jpguelerazevedo' },
+    { name: 'Pedro Henrique B. Duarte', role: 'Co-Founder & CEO', github: 'PhenBD' },
+];
+
+const Founder = ({ name, role, github, index }) => {
+    const ref = useRef(null);
+    const reduce = useReducedMotion();
+    const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+    const imageY = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['-7%', '7%']);
 
     return (
-        <div
-            className="flex flex-col items-center text-center border-4 border-lotus-1700 p-8 bg-lotus-1700 transition-all duration-300 hover:-translate-y-3 hover:translate-x-3"
-            style={{
-                boxShadow: isHovered ? '0px 0px 20px #d9e497ff, -1px 1px 0px #d9e497ff, -2px 2px 0px #d9e497ff, -3px 3px 0px #d9e497ff, -4px 4px 0px #d9e497ff, -5px 5px 0px #d9e497ff, -6px 6px 0px #d9e497ff, -7px 7px 0px #d9e497ff, -8px 8px 0px #d9e497ff, -9px 9px 0px #d9e497ff, -10px 10px 0px #d9e497ff, -11px 11px 0px #d9e497ff, -12px 12px 0px #d9e497ff' : 'none'
-            }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onClick={() => setIsHovered(!isHovered)}
-        >
-            <div className="relative mb-6 peer group">
-                <div className="w-40 h-40 overflow-hidden border-lotus-1700 shadow-lg transition-all">
-                    <img src={image} alt={name} className="w-full h-full object-cover" />
-                </div>
+        <li ref={ref} className={`group ${index === 1 ? 'md:mt-28' : ''}`}>
+            <motion.div
+                initial={reduce ? { opacity: 0 } : { clipPath: 'inset(100% 0% 0% 0% round 20px)' }}
+                whileInView={{ opacity: 1, clipPath: 'inset(0% 0% 0% 0% round 20px)' }}
+                viewport={{ once: true, margin: '0px 0px -12% 0px' }}
+                transition={{ duration: 1.3, ease: EASE }}
+                className="relative aspect-[4/5] overflow-hidden rounded-[20px] border border-bone/10 bg-ink"
+            >
+                <motion.img
+                    style={{ y: imageY, scale: 1.16 }}
+                    src={`https://github.com/${github}.png?size=720`}
+                    alt={`Retrato de ${name}`}
+                    loading="lazy"
+                    className="portrait h-full w-full object-cover transition-[filter] duration-700 ease-expo"
+                />
+                {/* Duotone lima que se desfaz no hover */}
+                <div aria-hidden="true" className="portrait-tint absolute inset-0 bg-lime mix-blend-multiply transition-opacity duration-700 ease-expo" />
+                <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-void/85 to-transparent" />
                 <a
-                    href={github}
+                    href={`https://github.com/${github}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="absolute bottom-0 left-0 p-2 rounded-full shadow-md text-lotus-2600 hover:text-white group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-colors"
+                    aria-label={`GitHub de ${name}`}
+                    className="glass absolute bottom-4 right-4 flex h-10 items-center gap-2 rounded-full px-4 text-[0.875rem] font-medium text-bone transition-colors hover:border-lime/50 hover:text-lime-hi"
                 >
-                    <Github size={20} />
+                    <Github size={16} strokeWidth={1.75} aria-hidden="true" />
+                    GitHub
                 </a>
+            </motion.div>
+            <div className="mt-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 className="text-[1.5rem] font-medium leading-tight tracking-[-0.03em] text-bone">{name}</h3>
+                <p className="text-[0.9375rem] text-sage">{role}</p>
             </div>
-            <h3 className="text-xl font-bold text-lotus-2300 mb-1 transition-all duration-300 peer-hover:text-lotus-2300 peer-hover:drop-shadow-[0_0_8px_rgba(217,228,151,0.8)]">{name}</h3>
-            <p className="text-lotus-2700 text-bold font-medium mb-2 transition-all duration-300 peer-hover:text-lotus-2600 peer-hover:drop-shadow-[0_0_8px_rgba(217,228,151,0.8)]">{role}</p>
-        </div>
+        </li>
     );
 };
 
 const Team = () => {
+    const ref = useRef(null);
+    const reduce = useReducedMotion();
+    const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+    const drift = useTransform(scrollYProgress, [0, 1], reduce ? ['0%', '0%'] : ['4%', '-26%']);
+
     return (
-        <section id="team" className="py-48  bg-lotus-1700">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div id='team2' className="grid grid-cols-1 xl:grid-cols-10 gap-0 mb-24 md:items-end border-b-4 border-lotus-1500 pb-6  text-left md:text-right">
-                    <p className="text-lg text-lotus-2300 pb-4 pt-8 xl:pt-0 max-w-xl xl:col-span-4 md:ml-auto order-2 xl:order-1 ">
-                        Mentes por trás da Lotus.
-                    </p>
+        <section id="team" ref={ref} aria-labelledby="team-title" className="relative overflow-hidden py-[clamp(6rem,16vh,11rem)]">
+            {/* Palavra gigante que desliza na horizontal por trás dos retratos */}
+            <motion.p
+                aria-hidden="true"
+                style={{ x: drift }}
+                className="pointer-events-none absolute left-0 top-[34%] select-none whitespace-nowrap text-[clamp(7rem,22vw,22rem)] font-extralight leading-none tracking-[-0.05em] text-bone/[0.03]"
+            >
+                liderança liderança
+            </motion.p>
 
-                    <h2 className="text-[70px] sm:text-[110px] md:text-[150px] text-lotus-1500 font-bold leading-none xl:col-span-6 order-1 xl:order-2"
-                    >Liderança</h2>
-                </div>
-                <div
-                    className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto"
-                >
-                    <TeamMember
-                        name="João Paulo G. Azevedo"
-                        role="Co-Founder & CEO"
-                        image="https://github.com/jpguelerazevedo.png"
-                        github="https://github.com/jpguelerazevedo"
-                    />
-                    <TeamMember
-                        name="Pedro Henrique B. Duarte"
-                        role="Co-Founder & CEO"
-                        image="https://github.com/PhenBD.png"
-                        github="https://github.com/PhenBD"
-                    />
-                </div>
+            <div className="shell relative">
+                <h2 id="team-title" data-stem-node="team" className="title-split max-w-[16em]">
+                    <span className="lit-text">Liderança:</span> <span className="text-moss">mentes por trás da Lotus</span>
+                </h2>
+                <ul className="mx-auto mt-20 grid max-w-[980px] gap-12 md:grid-cols-2 md:gap-10 lg:mt-24">
+                    {FOUNDERS.map((f, i) => (
+                        <Founder key={f.github} index={i} {...f} />
+                    ))}
+                </ul>
             </div>
-
         </section>
-
     );
 };
 
