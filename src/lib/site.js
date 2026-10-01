@@ -1,6 +1,6 @@
 // Conteúdo e links do site num só lugar.
 
-export const EMAIL = 'contato.lotus.sds@gmail.com';
+export const EMAIL = 'contato@lotusdev.com.br';
 export const MAILTO = `mailto:${EMAIL}`;
 export const LINKEDIN = 'https://linkedin.com';
 export const GITHUB_ORG = 'https://github.com/Lotus-SDS';

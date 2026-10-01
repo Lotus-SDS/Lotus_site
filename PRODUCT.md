@@ -12,7 +12,7 @@ Businesses and startups, mostly Portuguese-speaking in Brazil, looking for a sof
 
 ## Product Purpose
 
-Lotus Soluções em Desenvolvimento de Software is a software studio founded in 2025 in Espírito Santo, Brasil. The site at lotusdev.com.br is its front door: it explains what Lotus builds, who is behind it, and turns interest into an email to contato.lotus.sds@gmail.com. Success is a qualified visitor sending that email.
+Lotus Soluções em Desenvolvimento de Software is a software studio founded in 2025 in Espírito Santo, Brasil. The site at lotusdev.com.br is its front door: it explains what Lotus builds, who is behind it, and turns interest into an email to contato@lotusdev.com.br. Success is a qualified visitor sending that email.
 
 ## Positioning
 
@@ -39,7 +39,7 @@ Visitors reach the site by the domain, LinkedIn, GitHub, or referral, on desktop
 
 - Founded 2025; "100% foco em qualidade" (claim already on the site); four service lines; based in Espírito Santo, Brasil.
 - Leadership: João Paulo G. Azevedo (Co-Founder & CEO, github.com/jpguelerazevedo) and Pedro Henrique B. Duarte (Co-Founder & CEO, github.com/PhenBD); portraits are their GitHub avatars.
-- Organization GitHub: github.com/Lotus-SDS. Email: contato.lotus.sds@gmail.com.
+- Organization GitHub: github.com/Lotus-SDS. Email: contato@lotusdev.com.br.
 - The LinkedIn link is a generic placeholder (https://linkedin.com), kept by the user until a real URL exists.
 - Absent, and must not be fabricated: client names or logos, portfolio projects, testimonials, project counts, satisfaction rates, or support-hour claims.
 

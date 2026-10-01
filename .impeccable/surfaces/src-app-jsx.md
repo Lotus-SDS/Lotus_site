@@ -8,7 +8,7 @@ related_targets: []
 # Surface brief: lotusdev.com.br landing page
 
 Scope: the single-page site (src/App.jsx and its sections). Mode: Persuade.
-Audience and action: businesses and startups judging a development partner; the one action is an email to contato.lotus.sds@gmail.com.
+Audience and action: businesses and startups judging a development partner; the one action is an email to contato@lotusdev.com.br.
 Proof on hand: founding year 2025, "100% foco em qualidade", four service lines, the stack named in the copy, the two co-founders with GitHub portraits. No client logos, project counts, or testimonials exist; none may be invented.
 Constraints: static SPA, pt-BR copy, the logo's lime #B7C95B as the only accent on a near-black ground (user decision), the two reference sites' dark world is pinned.
 
