@@ -1,16 +1,19 @@
-# React + Vite
+# Lotus
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site da Lotus ([lotusdev.com.br](https://lotusdev.com.br)) em React + Vite + Tailwind, e ponto de publicação dos sites filhos em `lotusdev.com.br/<nome>/`.
 
-Currently, two official plugins are available:
+## Desenvolvimento
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+git clone --recurse-submodules https://github.com/Lotus-SDS/Lotus_site.git
+npm install
+npm run dev
+```
 
-## React Compiler
+`npm run lint` e `npm run build` são os mesmos passos que o CI roda em todo PR.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## Sites filhos e deploy
 
-## Expanding the ESLint configuration
+Cada pasta em `sites/` é um submodule com outro site, publicado no caminho de mesmo nome. Todo push na `main` faz o deploy. Quando a `main` de um site filho avança, o Lotus_site atualiza o submodule na própria `main` e publica sozinho.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Como funciona, como adicionar um site e a configuração do servidor: [docs/ci-cd.md](docs/ci-cd.md).

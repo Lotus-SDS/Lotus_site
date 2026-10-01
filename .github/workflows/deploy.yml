@@ -1,0 +1,155 @@
+# Cada merge na main é um deploy: publica no GHCR as imagens que ainda não
+# existem, gera o compose a partir do inventário de sites e sobe no servidor.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['**.md', 'docs/**', 'templates/**']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  packages: write
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  DOMAIN: ${{ vars.DOMAIN || 'lotusdev.com.br' }}
+  IMAGE_PREFIX: ghcr.io/${{ github.repository_owner }}/site-
+
+jobs:
+  plan:
+    name: Planejar
+    runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.missing.outputs.build }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      # A tag de cada imagem vem do commit do site, então um site que não mudou
+      # já tem imagem publicada e não é reconstruído nem reiniciado.
+      - name: Imagens que faltam no GHCR
+        id: missing
+        run: |
+          build=$(node deploy/sites.mjs list | jq -c '.[]' | while read -r site; do
+            ref=$(jq -r '"\(.image):\(.tag)"' <<< "$site")
+            if docker buildx imagetools inspect "$ref" > /dev/null 2>&1; then
+              echo "= $ref" >&2
+            else
+              echo "+ $ref" >&2
+              echo "$site"
+            fi
+          done | jq -cs .)
+          echo "build=$build" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build
+    needs: plan
+    if: needs.plan.outputs.build != '[]'
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/build-sites.yml
+    with:
+      sites: ${{ needs.plan.outputs.build }}
+      push: true
+    secrets: inherit
+
+  deploy:
+    name: Publicar no servidor
+    needs: [plan, build]
+    # Roda também quando o build foi pulado (nenhuma imagem nova).
+    if: ${{ !cancelled() && !failure() }}
+    runs-on: ubuntu-latest
+    # Em planos pagos, descomente para exigir aprovação manual e ver o deploy no PR.
+    # environment:
+    #   name: production
+    #   url: https://${{ vars.DOMAIN || 'lotusdev.com.br' }}
+    env:
+      DEPLOY_PATH: ${{ vars.DEPLOY_PATH || '/opt/lotus' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gerar compose
+        run: |
+          node deploy/sites.mjs compose > compose.yml
+          cat compose.yml
+
+      - name: Configurar SSH
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PORT: ${{ vars.DEPLOY_PORT || '22' }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          for var in DEPLOY_HOST DEPLOY_USER DEPLOY_SSH_KEY DEPLOY_KNOWN_HOSTS; do
+            [ -n "${!var}" ] || { echo "::error::Secret $var não configurado (veja docs/ci-cd.md)."; exit 1; }
+          done
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          cat > ~/.ssh/config <<EOF
+          Host deploy
+            HostName $DEPLOY_HOST
+            User $DEPLOY_USER
+            Port $DEPLOY_PORT
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+            StrictHostKeyChecking yes
+          EOF
+
+      - name: Subir os containers
+        env:
+          GHCR_USER: ${{ github.actor }}
+          GHCR_TOKEN: ${{ github.token }}
+        run: |
+          # As variáveis expandem aqui no runner, de propósito (SC2029).
+          # shellcheck disable=SC2029
+          ssh deploy "mkdir -p '$DEPLOY_PATH'"
+          scp -q compose.yml "deploy:$DEPLOY_PATH/compose.yml"
+          # O token do job vale só enquanto o workflow roda; serve para o pull das imagens privadas.
+          # shellcheck disable=SC2029
+          ssh deploy "docker login ghcr.io -u '$GHCR_USER' --password-stdin" <<< "$GHCR_TOKEN"
+          # shellcheck disable=SC2029
+          ssh deploy "set -e
+            cd '$DEPLOY_PATH'
+            docker network inspect web_network > /dev/null 2>&1 || docker network create web_network
+            docker compose pull --quiet
+            docker compose up -d --remove-orphans
+            docker logout ghcr.io
+            docker image prune -af --filter until=168h > /dev/null"
+
+      - name: Conferir os sites no ar
+        run: |
+          failed=0
+          echo "### Publicado" >> "$GITHUB_STEP_SUMMARY"
+          while read -r href; do
+            # Containers recém-criados levam alguns segundos para entrar no Traefik.
+            if curl -fsS -o /dev/null --retry 10 --retry-delay 6 --retry-all-errors "$href"; then
+              echo "- ✅ $href" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "::error::$href não respondeu."
+              echo "- ❌ $href" >> "$GITHUB_STEP_SUMMARY"
+              failed=1
+            fi
+          done < <(node deploy/sites.mjs list | jq -r '.[].href')
+          exit "$failed"

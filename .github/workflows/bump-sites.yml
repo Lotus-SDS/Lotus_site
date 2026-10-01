@@ -1,0 +1,80 @@
+# Leva para a main o commit mais recente de cada site filho e publica.
+# Disparado pelo próprio site filho (templates/site-filho), manualmente ou
+# uma vez por dia como rede de segurança.
+#
+#   prepare  grava os ponteiros novos na branch temporária bump/sites
+#   build    constrói e publica as imagens desses sites
+#   publish  só se o build passou: commit na main e deploy
+name: Atualizar sites filhos
+
+on:
+  repository_dispatch:
+    types: [site-updated]
+  workflow_dispatch:
+    inputs:
+      site:
+        description: Nome do site (pasta em sites/). Vazio verifica todos.
+        required: false
+  schedule:
+    - cron: '0 11 * * *' # 8h em Brasília
+
+permissions:
+  contents: write
+  packages: write
+  actions: write
+
+concurrency:
+  group: bump-sites
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  DOMAIN: ${{ vars.DOMAIN || 'lotusdev.com.br' }}
+  IMAGE_PREFIX: ghcr.io/${{ github.repository_owner }}/site-
+
+jobs:
+  prepare:
+    name: Procurar versões novas
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.prepare.outputs.sha }}
+      sites: ${{ steps.prepare.outputs.sites }}
+      updates: ${{ steps.prepare.outputs.updates }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Necessário só se algum site filho for privado.
+          token: ${{ secrets.LOTUS_BOT_TOKEN || github.token }}
+      - id: prepare
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FILTER: ${{ github.event.client_payload.repo || inputs.site }}
+        run: bash deploy/bump-sites.sh prepare
+
+  build:
+    name: Build
+    needs: prepare
+    if: needs.prepare.outputs.sites != '[]'
+    uses: ./.github/workflows/build-sites.yml
+    with:
+      sites: ${{ needs.prepare.outputs.sites }}
+      ref: ${{ needs.prepare.outputs.sha }}
+      push: true
+    secrets: inherit
+
+  publish:
+    name: Atualizar a main e publicar
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          UPDATES: ${{ needs.prepare.outputs.updates }}
+        run: bash deploy/bump-sites.sh publish

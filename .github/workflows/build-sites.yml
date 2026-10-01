@@ -1,0 +1,79 @@
+# Constrói (e opcionalmente publica no GHCR) as imagens de uma lista de sites.
+# Usado pelo CI dos PRs (sem push) e pelo deploy (com push).
+name: Build dos sites
+
+on:
+  workflow_call:
+    inputs:
+      sites:
+        description: Lista JSON gerada por deploy/sites.mjs
+        type: string
+        required: true
+      push:
+        description: Publicar as imagens no GHCR
+        type: boolean
+        default: false
+      ref:
+        description: Commit do Lotus_site a construir (padrão, o do evento)
+        type: string
+        default: ''
+
+# Permissões vêm do workflow que chama (o deploy concede packages: write).
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: ${{ matrix.site.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        site: ${{ fromJSON(inputs.sites) }}
+    env:
+      SITE_PATH: ${{ matrix.site.path }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          submodules: ${{ matrix.site.path != '.' }}
+          # Necessário só se algum site filho for privado.
+          token: ${{ secrets.LOTUS_BOT_TOKEN || github.token }}
+
+      - name: O commit do site passou pelo PR do repositório filho
+        if: matrix.site.path != '.'
+        run: node deploy/sites.mjs verify "$SITE_PATH"
+
+      - name: Escolher Dockerfile
+        id: dockerfile
+        run: |
+          if [ "$SITE_PATH" = . ] || [ -f "$SITE_PATH/Dockerfile" ]; then
+            echo "file=$SITE_PATH/Dockerfile" >> "$GITHUB_OUTPUT"
+          else
+            echo "file=deploy/static/Dockerfile" >> "$GITHUB_OUTPUT"
+            echo "::notice::$SITE_PATH não tem Dockerfile; usando o build estático padrão."
+          fi
+
+      - uses: docker/setup-buildx-action@v3
+
+      - if: inputs.push
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.site.path }}
+          file: ${{ steps.dockerfile.outputs.file }}
+          build-contexts: lotus-static=deploy/static
+          # Caminho em que o site é servido (/ ou /<nome>/), para o build gerar os links certos.
+          build-args: BASE_PATH=${{ matrix.site.prefix }}
+          push: ${{ inputs.push }}
+          tags: ${{ matrix.site.image }}:${{ matrix.site.tag }}
+          labels: org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+          cache-from: type=gha,scope=site-${{ matrix.site.name }}
+          cache-to: type=gha,mode=max,scope=site-${{ matrix.site.name }}

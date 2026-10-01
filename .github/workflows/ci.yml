@@ -1,0 +1,74 @@
+# Roda em todo PR para a main: valida o site principal e constrói a imagem de
+# cada site afetado (inclusive os PRs automáticos de atualização de submodule).
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  DOMAIN: ${{ vars.DOMAIN || 'lotusdev.com.br' }}
+  IMAGE_PREFIX: ghcr.io/${{ github.repository_owner }}/site-
+
+jobs:
+  main-site:
+    name: Site principal · lint e build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+
+  plan:
+    name: Planejar
+    runs-on: ubuntu-latest
+    outputs:
+      sites: ${{ steps.changed.outputs.sites }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sites afetados por este PR
+        id: changed
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          sites=$(node deploy/sites.mjs changed "$BASE_SHA" "$HEAD_SHA")
+          echo "sites=$sites" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Sites afetados"
+            jq -r 'if length == 0 then "Nenhum: nada para construir." else .[] | "- **\(.name)** → \(.href)" end' <<< "$sites"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Validar o compose de produção
+        run: |
+          node deploy/sites.mjs compose > "$RUNNER_TEMP/compose.yml"
+          ACME_EMAIL=ci@example.com docker compose -f "$RUNNER_TEMP/compose.yml" config --quiet
+
+  build:
+    name: Build
+    needs: plan
+    if: needs.plan.outputs.sites != '[]'
+    uses: ./.github/workflows/build-sites.yml
+    with:
+      sites: ${{ needs.plan.outputs.sites }}
+      push: false
+    secrets: inherit

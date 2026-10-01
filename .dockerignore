@@ -1,0 +1,13 @@
+# Contexto do build do site principal (Dockerfile da raiz).
+.git
+.github
+node_modules
+dist
+sites
+templates
+deploy
+docs
+.impeccable
+.env
+.env.*
+*.md
