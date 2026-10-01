@@ -147,7 +147,7 @@ A restrained palette: a green-cast void, four text neutrals stepped by importanc
 - **Bone** (`bone`): primary text and bright display lines; at 5–16% opacity it becomes every hairline, border, and glass tint.
 - **Sage** (`sage`): secondary text, labels, captions (8.5:1 on the void).
 - **Moss** (`moss`): the dim half of split headings and the unlit state of headings before the stem arrives (4.3:1, large text only).
-- **Fern** (`fern`): the hero's rear display line, darker so the particle lotus reads in front of it (about 3:1, only at display size).
+- **Fern** (`fern`): the hero's rear display line, darker so the particle lotus reads in front of it (about 3:1, only at display size). Below 640px the lotus covers the whole line, so it rises above the particles in `sage` with a void halo to stay legible.
 
 ### Named Rules
 **The One Light Rule.** Lime is light, not paint. It appears as strokes, glows, text, icon discs, and the primary pill; it never floods a section background.

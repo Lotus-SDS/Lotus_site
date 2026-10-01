@@ -69,7 +69,11 @@ const Hero = () => {
                                 <Line delay={0.45}>inovação</Line>
                             </motion.span>
                         </motion.span>
-                        <motion.span style={{ x: back.x, y: backY, opacity: backOpacity }} className="relative z-[1] block text-[rgb(var(--fern))]">
+                        {/* No celular o lótus cobre a linha inteira: ela sobe acima das partículas e clareia para continuar legível */}
+                        <motion.span
+                            style={{ x: back.x, y: backY, opacity: backOpacity }}
+                            className="relative z-[1] block text-[rgb(var(--fern))] max-sm:z-[3] max-sm:text-sage max-sm:[text-shadow:0_0_0.1em_rgb(var(--void)),0_0_0.25em_rgb(var(--void)/0.7)]"
+                        >
                             <motion.span style={{ y: back.y }} className="block">
                                 <Line delay={0.2}>
                                     que <br className="sm:hidden" />
