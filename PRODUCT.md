@@ -38,7 +38,7 @@ Visitors reach the site by the domain, LinkedIn, GitHub, or referral, on desktop
 ## Evidence on Hand
 
 - Founded 2025; "100% foco em qualidade" (claim already on the site); four service lines; based in Espírito Santo, Brasil.
-- Leadership: João Paulo G. Azevedo (Co-Founder & CEO, github.com/jpguelerazevedo) and Pedro Henrique B. Duarte (Co-Founder & CEO, github.com/PhenBD); portraits are their GitHub avatars.
+- Leadership: three co-founders, titled only "Co-Founder": João Paulo G. Azevedo (github.com/jpguelerazevedo), Pedro Henrique B. Duarte (github.com/PhenBD) and Ulisses Kuster Cossi (no GitHub). Portraits: the first two are their GitHub avatars; Ulisses's photo is public/images/team/ulisses.webp. All are square and shown uncropped (no zoom).
 - Organization GitHub: github.com/Lotus-SDS. Email: contato@lotusdev.com.br. WhatsApp: +55 27 3191-2864 (wa.me/552731912864); every "Falar com especialista" lets the visitor choose WhatsApp or email.
 - No LinkedIn link: the user removed the placeholder buttons until a real company page exists.
 - Absent, and must not be fabricated: client names or logos, portfolio projects, testimonials, project counts, satisfaction rates, or support-hour claims.

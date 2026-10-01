@@ -217,7 +217,7 @@ Controls are full pills (999px): buttons, tags, the GitHub link, icon buttons. C
 ### Cards / Containers
 - **Service tile:** glass panel (20px) over the dot-grid board and bus glow. Unpowered: bone/9 border, outlined icon disc. Powered (the stem arrived): lime/32 border, lime icon disc with void glyph, powered-tile shadow. Hover lifts 4px.
 - **Stat box:** 16px box, bone/10 hairline, bone/2.5 fill with light blur over the hero aura; number top-right in extralight tabular numerals, label bottom-left in sage.
-- **Portrait:** 4:5 frame (20px) with a grayscale-plus-lime duotone that clears to full color on hover or focus, and full color on touch screens. Wipes in from the bottom; the image drifts inside its frame with scroll.
+- **Portrait:** square frame (20px) showing the whole photo, with no scale or in-frame drift, and a grayscale-plus-lime duotone that clears to full color on hover or focus (full color on touch screens). Wipes in from the bottom. Three founders sit in three columns from 768px, the middle one dropped; the role sits under the name.
 
 ### Navigation
 Logo mark plus the "lotus" wordmark at left, centered links (0.9375rem, sage, bone when active), and the lime pill CTA at right. Under the links runs a miniature stem: a hairline filling with scroll progress and one via per link that lights as its section is reached. The header turns into void/70 glass after 24px of scroll. Below 1024px a full-screen menu with 2.5rem light links replaces it; content behind it is made inert.
