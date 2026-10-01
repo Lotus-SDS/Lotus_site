@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { Check, Copy, Linkedin, Mail } from 'lucide-react';
+import { Check, Copy } from 'lucide-react';
 import LotusParticles from './animations/LotusParticles';
 import { useFirstImage } from '../lib/useFirstImage';
-import { EMAIL, LINKEDIN, MAILTO } from '../lib/site';
+import WhatsAppIcon from './WhatsAppIcon';
+import { useContact } from '../lib/contact';
+import { EMAIL, MAILTO, WHATSAPP, WHATSAPP_LABEL } from '../lib/site';
 
 const BLOOM = ['/images/lotus-bloom.webp', '/images/lotus-bloom.jpg', '/images/lotus-bloom.png'];
 const PILLARS = ['Moderno', 'Rápido', 'Seguro', 'Escalável'];
@@ -11,6 +13,7 @@ const PILLARS = ['Moderno', 'Rápido', 'Seguro', 'Escalável'];
 const Contact = () => {
     const ref = useRef(null);
     const reduce = useReducedMotion();
+    const openContact = useContact();
     const bloomSrc = useFirstImage(BLOOM);
     const [copied, setCopied] = useState(false);
 
@@ -63,31 +66,32 @@ const Contact = () => {
                 </p>
 
                 <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-                    <a data-stem="cta" href={MAILTO} className="cta-socket btn btn-primary btn-lg">
-                        <Mail size={18} strokeWidth={1.9} aria-hidden="true" />
+                    <button type="button" data-stem="cta" onClick={openContact} aria-haspopup="dialog" className="cta-socket btn btn-primary btn-lg">
                         Falar com especialista
-                    </a>
-                    <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">
-                        <Linkedin size={18} strokeWidth={1.75} aria-hidden="true" />
-                        LinkedIn
-                    </a>
+                    </button>
                 </div>
 
-                <div className="mt-7 flex items-center gap-2 text-[0.9375rem]">
-                    <a href={MAILTO} className="link-quiet">
-                        {EMAIL}
+                <div className="mt-7 flex flex-col items-center gap-3 text-[0.9375rem] sm:flex-row sm:gap-6">
+                    <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="link-quiet inline-flex items-center gap-2">
+                        <WhatsAppIcon size={15} />
+                        {WHATSAPP_LABEL}
                     </a>
-                    <button
-                        type="button"
-                        onClick={copyEmail}
-                        aria-label="Copiar e-mail"
-                        className="relative grid h-9 w-9 place-items-center rounded-full border border-bone/10 text-sage transition-colors hover:border-bone/30 hover:text-bone"
-                    >
-                        {copied ? <Check size={15} className="text-lime" aria-hidden="true" /> : <Copy size={15} aria-hidden="true" />}
-                    </button>
-                    <span role="status" aria-live="polite" className={`text-[0.8125rem] text-lime transition-opacity duration-300 ${copied ? 'opacity-100' : 'opacity-0'}`}>
-                        {copied ? 'Copiado' : ''}
-                    </span>
+                    <div className="flex items-center gap-2">
+                        <a href={MAILTO} className="link-quiet">
+                            {EMAIL}
+                        </a>
+                        <button
+                            type="button"
+                            onClick={copyEmail}
+                            aria-label="Copiar e-mail"
+                            className="relative grid h-9 w-9 place-items-center rounded-full border border-bone/10 text-sage transition-colors hover:border-bone/30 hover:text-bone"
+                        >
+                            {copied ? <Check size={15} className="text-lime" aria-hidden="true" /> : <Copy size={15} aria-hidden="true" />}
+                        </button>
+                        <span role="status" aria-live="polite" className={`text-[0.8125rem] text-lime transition-opacity duration-300 ${copied ? 'opacity-100' : 'opacity-0'}`}>
+                            {copied ? 'Copiado' : ''}
+                        </span>
+                    </div>
                 </div>
             </div>
 

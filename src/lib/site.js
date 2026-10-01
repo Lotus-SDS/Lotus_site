@@ -2,7 +2,8 @@
 
 export const EMAIL = 'contato@lotusdev.com.br';
 export const MAILTO = `mailto:${EMAIL}`;
-export const LINKEDIN = 'https://linkedin.com';
+export const WHATSAPP_LABEL = '+55 27 3191-2864';
+export const WHATSAPP = `https://wa.me/552731912864?text=${encodeURIComponent('Olá! Vim pelo site da Lotus e gostaria de falar com um especialista.')}`;
 export const GITHUB_ORG = 'https://github.com/Lotus-SDS';
 
 export const NAV = [

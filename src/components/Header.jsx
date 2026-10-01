@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
-import { EASE, EMAIL, MAILTO, NAV } from '../lib/site';
+import { ArrowUpRight, Mail, Menu, X } from 'lucide-react';
+import WhatsAppIcon from './WhatsAppIcon';
+import { useContact } from '../lib/contact';
+import { EASE, EMAIL, MAILTO, NAV, WHATSAPP } from '../lib/site';
 
 // Seções que acendem cada item do menu (Abordagem pertence a "Sobre").
 const SECTION_TO_NAV = { inicio: 0, sobre: 1, abordagem: 1, servicos: 2, team: 3, contato: 4 };
@@ -11,6 +13,7 @@ const Header = () => {
     const [scrolled, setScrolled] = useState(false);
     const [active, setActive] = useState(0);
     const reduce = useReducedMotion();
+    const openContact = useContact();
     const menuButton = useRef(null);
     const firstLink = useRef(null);
 
@@ -109,10 +112,15 @@ const Header = () => {
                 </nav>
 
                 <div className="relative z-10 flex items-center gap-2">
-                    <a href={MAILTO} className="btn btn-primary hidden h-10 px-5 text-[0.875rem] sm:inline-flex">
+                    <button
+                        type="button"
+                        onClick={openContact}
+                        aria-haspopup="dialog"
+                        className="btn btn-primary hidden h-10 px-5 text-[0.875rem] sm:inline-flex"
+                    >
                         Falar com especialista
                         <ArrowUpRight size={16} strokeWidth={2} className="nudge" />
-                    </a>
+                    </button>
                     <button
                         ref={menuButton}
                         type="button"
@@ -167,13 +175,18 @@ const Header = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.6, delay: 0.35 }}
-                            className="flex flex-col gap-4"
+                            className="flex flex-col gap-3"
                         >
-                            <a href={MAILTO} className="btn btn-primary btn-lg w-full">
-                                Falar com especialista
-                                <ArrowUpRight size={18} className="nudge" />
+                            <p className="mb-1 text-[0.8125rem] font-medium uppercase tracking-[0.14em] text-sage">Falar com especialista</p>
+                            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg w-full">
+                                <WhatsAppIcon size={18} />
+                                WhatsApp
                             </a>
-                            <a href={MAILTO} className="text-center text-sm text-sage">
+                            <a href={MAILTO} className="btn btn-ghost btn-lg w-full">
+                                <Mail size={18} strokeWidth={1.75} aria-hidden="true" />
+                                E-mail
+                            </a>
+                            <a href={MAILTO} className="mt-1 text-center text-sm text-sage">
                                 {EMAIL}
                             </a>
                         </motion.div>

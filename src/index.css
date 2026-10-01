@@ -418,3 +418,67 @@
     }
   }
 }
+
+/* Diálogo "Falar com especialista": folha no rodapé do celular, cartão centralizado a partir de 640px. */
+.contact-dialog {
+  width: 100%;
+  max-width: 100%;
+  max-height: 100dvh;
+  margin: auto 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgb(var(--bone));
+  overflow: visible;
+  transition:
+    opacity 320ms var(--ease-expo),
+    transform 520ms var(--ease-expo);
+}
+
+.contact-dialog::backdrop {
+  /* Literal: ::backdrop não herda as variáveis do :root em navegadores mais antigos */
+  background: rgb(5 6 5 / 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition: opacity 320ms ease;
+}
+
+@starting-style {
+  .contact-dialog[open] {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+
+  .contact-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 640px) {
+  .contact-dialog {
+    max-width: 28rem;
+    margin: auto;
+  }
+
+  @starting-style {
+    .contact-dialog[open] {
+      transform: translateY(0.75rem) scale(0.98);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-dialog {
+    transition: opacity 200ms ease;
+  }
+
+  @starting-style {
+    .contact-dialog[open] {
+      transform: none;
+    }
+  }
+}
+
+html:has(.contact-dialog[open]) {
+  overflow: hidden;
+}

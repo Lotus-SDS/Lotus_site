@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
-import { Github, Linkedin } from 'lucide-react';
-import { EMAIL, GITHUB_ORG, MAILTO } from '../lib/site';
+import { Github } from 'lucide-react';
+import { EMAIL, GITHUB_ORG, MAILTO, WHATSAPP, WHATSAPP_LABEL } from '../lib/site';
 
 const LINKS = [
     { href: '#sobre', label: 'Sobre' },
@@ -50,6 +50,11 @@ const Footer = () => {
                                 {EMAIL}
                             </a>
                         </li>
+                        <li>
+                            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="link-quiet text-bone/80">
+                                WhatsApp {WHATSAPP_LABEL}
+                            </a>
+                        </li>
                         <li className="text-bone/80">Espírito Santo, Brasil</li>
                     </ul>
                     <div className="mt-6 flex gap-2">
@@ -61,15 +66,6 @@ const Footer = () => {
                             className="grid h-10 w-10 place-items-center rounded-full border border-bone/15 text-sage transition-colors hover:border-lime/50 hover:text-lime"
                         >
                             <Github size={17} strokeWidth={1.75} />
-                        </a>
-                        <a
-                            href="https://www.linkedin.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="LinkedIn da Lotus"
-                            className="grid h-10 w-10 place-items-center rounded-full border border-bone/15 text-sage transition-colors hover:border-lime/50 hover:text-lime"
-                        >
-                            <Linkedin size={17} strokeWidth={1.75} />
                         </a>
                     </div>
                 </div>

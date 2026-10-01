@@ -4,7 +4,8 @@ import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import LotusParticles from './animations/LotusParticles';
 import Marquee from './animations/Marquee';
 import { usePointerShift } from '../lib/pointer';
-import { EASE, MAILTO, STACK } from '../lib/site';
+import { useContact } from '../lib/contact';
+import { EASE, STACK } from '../lib/site';
 
 const TAGS = ['Web', 'Mobile', 'Cloud', 'IA'];
 
@@ -31,6 +32,7 @@ const Line = ({ children, delay }) => {
 const Hero = () => {
     const sectionRef = useRef(null);
     const reduce = useReducedMotion();
+    const openContact = useContact();
 
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
     const p = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.35 });
@@ -151,10 +153,10 @@ const Hero = () => {
                             variants={{ hidden: { opacity: 0, y: reduce ? 0 : 12 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } } }}
                             className="flex flex-wrap items-center gap-3"
                         >
-                            <a href={MAILTO} className="btn btn-primary">
+                            <button type="button" onClick={openContact} aria-haspopup="dialog" className="btn btn-primary">
                                 Falar com especialista
                                 <ArrowUpRight size={18} strokeWidth={2} className="nudge" />
-                            </a>
+                            </button>
                             <a href="#sobre" className="btn btn-ghost">
                                 Conheça a Lotus
                                 <ArrowDown size={17} strokeWidth={1.75} className="nudge-down" />
