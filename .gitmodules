@@ -1,3 +1,6 @@
 [submodule "sites/consultorio-dra-maria-ines"]
 	path = sites/consultorio-dra-maria-ines
 	url = https://github.com/Lotus-SDS/consultorio-dra-maria-ines.git
+[submodule "sites/masterimoveis"]
+	path = sites/masterimoveis
+	url = https://github.com/Lotus-SDS/masterimoveis.git
