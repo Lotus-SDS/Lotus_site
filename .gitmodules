@@ -4,3 +4,6 @@
 [submodule "sites/masterimoveis"]
 	path = sites/masterimoveis
 	url = https://github.com/Lotus-SDS/masterimoveis.git
+[submodule "sites/acric"]
+	path = sites/acric
+	url = https://github.com/Lotus-SDS/acric.git
