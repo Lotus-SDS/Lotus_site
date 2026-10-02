@@ -33,7 +33,8 @@ flowchart LR
 | `.github/workflows/deploy.yml` | Deploy a cada push na `main` (ou manual). |
 | `.github/workflows/bump-sites.yml` | Atualiza os submodules quando um site filho avança. |
 | `.github/workflows/build-sites.yml` | Build das imagens, compartilhado pelos outros workflows. |
-| `templates/site-filho/` | Workflow para copiar em cada repositório de site filho. |
+| `templates/site-filho/` | Workflow padrão de um site filho; o [template-site](https://github.com/Lotus-SDS/template-site) já vem com ele. |
+| `docs/novo-site.md` | Passo a passo para publicar um site novo. |
 | `Dockerfile`, `nginx.conf` | Imagem do site principal. |
 
 ## Fluxos do dia a dia
@@ -57,16 +58,15 @@ Se o aviso não chegar (secret ausente, falha no GitHub), a verificação diári
 
 ### Adicionar um site filho
 
-```bash
-git switch -c site/<nome>
-git submodule add https://github.com/Lotus-SDS/<repo>.git sites/<nome>
-git commit -m "add: site <nome>"
-git push -u origin site/<nome>   # e abra o PR
-```
+Passo a passo completo, a partir do [template-site](https://github.com/Lotus-SDS/template-site): **[novo-site.md](novo-site.md)**.
 
-O merge publica `https://lotusdev.com.br/<nome>/`. No repositório do site filho, copie `templates/site-filho/.github/workflows/lotus.yml` e configure o secret `LOTUS_BOT_TOKEN`.
+Em resumo:
+1. Crie o repositório do site pelo template.
+2. Se ele for privado, configure os tokens.
+3. Faça push do site na `main` dele.
+4. Registre o submodule na **`main`** do Lotus_site: `git submodule add https://github.com/Lotus-SDS/<repo>.git sites/<nome>`, commit e push.
 
-Use URL `https://` no submodule (não `git@`), para o CI e qualquer pessoa conseguirem clonar.
+O site só existe para o Lotus_site depois que o submodule chega na `main`.
 
 ### Remover um site filho
 
