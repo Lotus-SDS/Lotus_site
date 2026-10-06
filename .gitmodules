@@ -7,3 +7,6 @@
 [submodule "sites/acric"]
 	path = sites/acric
 	url = https://github.com/Lotus-SDS/acric.git
+[submodule "sites/amenezes-imobiliaria"]
+	path = sites/amenezes-imobiliaria
+	url = https://github.com/Lotus-SDS/amenezes-imobiliaria.git
