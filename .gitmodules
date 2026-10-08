@@ -7,3 +7,9 @@
 [submodule "sites/acric"]
 	path = sites/acric
 	url = https://github.com/Lotus-SDS/acric.git
+[submodule "sites/jfrossard-advocacia"]
+	path = sites/jfrossard-advocacia
+	url = https://github.com/Lotus-SDS/JFrossard-advocacia.git
+[submodule "sites/cristina-milanez"]
+	path = sites/cristina-milanez
+	url = https://github.com/Lotus-SDS/cristiana-milanez.git
