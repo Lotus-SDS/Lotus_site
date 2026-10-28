@@ -2,7 +2,7 @@
 
 Site da Lotus ([lotusdev.com.br](https://lotusdev.com.br)) em React + Vite + Tailwind.
 
-## Desenvolvimento
+## Desenvolvimento 
 
 ```bash
 git clone https://github.com/Lotus-SDS/Lotus_site.git
