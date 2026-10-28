@@ -5,13 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  // sites/ são submodules: cada site filho tem o próprio lint.
-  globalIgnores(['dist', 'sites']),
-  {
-    files: ['deploy/**/*.mjs'],
-    extends: [js.configs.recommended],
-    languageOptions: { globals: globals.node },
-  },
+  globalIgnores(['dist']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
